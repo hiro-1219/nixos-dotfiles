@@ -8,10 +8,12 @@
     # User environment
     users.users.hiroki = {
         isNormalUser = true;
+        home = "/home/hiroki";
         shell = pkgs.fish;
         extraGroups = ["networkmanager" "wheel" "docker" ];
     };
-
+    
+    programs.fish.enable = true;
     environment = {
         shells = [pkgs.fish];
         systemPackages = with pkgs; [
@@ -21,6 +23,13 @@
         ];
     };
     console.keyMap = "jp106";
+
+    # Window Manager
+    services.printing.enable = true;
+    services.xserver.libinput.enable = true;
+    services.xserver.enable = true;
+    services.xserver.videoDrivers = [ "modesetting" ];
+    services.xserver.desktopManager.pantheon.enable = true;
 
     # network
     networking = {

@@ -10,16 +10,13 @@
         ../modules/security.nix
         ../modules/services.nix
         ../modules/sound.nix
-        ../modules/desktop/hyprland.nix
     ];
 
     boot = {
         loader = {
             systemd-boot.enable = true;
-            efi = {
-                canTouchEfiVariables = true;
-                efiSysMountPoint = "/boot/efi";
-            };
+            efi.canTouchEfiVariables = true;
+            grub.useOSProber = true;
         };
         kernelPackages = pkgs.linuxPackages_latest;
     };

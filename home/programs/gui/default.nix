@@ -1,5 +1,6 @@
-{
-    imports = [
-        ./vscode
+{pkgs, ...}: {
+    home.packages = with pkgs; [
+    	vscode
+	    firefox
     ];
 }

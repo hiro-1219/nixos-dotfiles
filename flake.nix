@@ -8,26 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    # Hyprland
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # Others
+    # rust-overlay
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    xremap = {
-      url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -37,7 +20,6 @@
     home-manager,
     ...
   }: let
-    colorscheme = (import ./colorschemes) "tokyonight-moon";
   in {
     nixosConfigurations = {
       Aoi-Dell-Inspiron = nixpkgs.lib.nixosSystem {
@@ -46,13 +28,12 @@
       };
     };
     homeConfigurations = {
-      "home@Aoi-Dell-Inspiron" = home-manager.lib.homeManagerConfiguration {
+      "hiroki@Aoi-Dell-Inspiron" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
           overlays = [(import inputs.rust-overlay)];
         };
-        extraSpecialArgs = {inherit inputs colorscheme;};
         modules = [./home/Aoi-Dell-Inspiron.nix];
       };
     };
